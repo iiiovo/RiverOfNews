@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+
+<body>
+<header th:replace="layout::site-header"></header>
+<table align="center" style="width:20%;margin: auto;padding:2%;background: #E8EBF0;">
+    <tr>
+        <th>
+            <h2 style="text-align:center; color: #1E68A6;">Registration Form</h2>
+
+            <div>
+                <form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <input type="text" th:field="*{userName}" placeholder="User Name"
+                               th:class="${#fields.hasErrors('userName') ? 'form-control is-invalid' : 'form-control'}"/>
+                        <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                             class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" th:field="*{passwordHash}" placeholder="Password"
+                               th:class="${#fields.hasErrors('passwordHash') ? 'form-control is-invalid' : 'form-control'}"/>
+                        <div th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}"
+                             class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{fullName}" placeholder="Full Name"
+                               th:class="${#fields.hasErrors('fullName') ? 'form-control is-invalid' : 'form-control'}"/>
+                        <label th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"
+                               class="invalid-feedback"></label>
+                    </div>
+                    <div class="form-group clearfix">
+                        <button type="submit" class="btn btn-primary float-left">Register</button>
+                    </div>
+                    <div class="form-group">
+                        <div th:class="${successMessage} ? 'alert alert-success' : ''"
+                             th:text="${successMessage}"></div>
+                    </div>
+                </form>
+            </div>
+        </th>
+    </tr>
+</table>
+<footer th:replace="layout::site-footer"></footer>
+</body>
+</html>

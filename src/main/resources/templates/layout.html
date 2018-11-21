@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="site-head">
+    <meta charset="UTF-8"/>
+    <title>River of News</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}"/>
+
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}"/>
+    <script src="../public/js/news-scripts.js" th:src="@{/js/news-scripts.js}"></script>
+
+</head>
+<body>
+<header th:fragment="site-header" th:remove="tag">
+    <header>
+        <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}"/></a>
+        <iframe style="vertical-align:middle"
+                src="http://free.timeanddate.com/clock/i6i5c0tj/n2210/fn6/fs12/fc090/tct/pct/ftb/pd2/tt0/tw1/tm1/th1/ta1/tb4"
+                frameborder="0" width="112" height="32" allowTransparency="true"></iframe>
+        <a href="index.html" th:href="@{/}">Home</a>
+        <span sec:authorize="isAuthenticated()">
+                 <a href="posts/index.html" th:href="@{/posts}">News</a>
+				<a href="posts/add.html" th:href="@{/posts/add}">Add Article</a>
+				<a sec:authorize="hasAuthority('ADMIN')" href="users/index.html" th:href="@{/users}">Members</a>
+			</span>
+        <div id="logged-in-info">
+            <div sec:authorize="isAuthenticated()">
+					<span>Logged: <b sec:authentication="name"></b>
+                        <span sec:authentication="principal.authorities"></span>
+					</span>
+                <a ref="#" th:href="@{/users/logout}"><span class="fa fa-sign-out"></span>&nbsp;[Sign out]</a>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <a href="users/login.html" th:href="@{/users/login}">Sign in</a>
+                <a href="users/register.html" th:href="@{/users/register}">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <ul id="messages"
+        th:with="notifyMessages=${session[T(stream.news.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
+        <li th:each="msg : ${notifyMessages}" th:text="${msg.text}"
+            th:class="${msg.type.toString().toLowerCase()}"></li>
+        <span th:if="${notifyMessages}" th:remove="all"
+              th:text="${#session.removeAttribute(T(stream.news.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
+    </ul>
+
+</header>
+<footer th:fragment="site-footer">&copy; River of News 2018</footer>
+</body>
+</html>

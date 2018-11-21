@@ -1,0 +1,7 @@
+stream.news
+stream.news.configuration
+stream.news.controllers
+stream.news.forms
+stream.news.models
+stream.news.repositories
+stream.news.services

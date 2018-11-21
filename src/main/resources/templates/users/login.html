@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+
+<body>
+<header th:replace="layout::site-header"></header>
+<table align="center" style="width:20%;margin: auto;padding:2%;background: #E8EBF0;">
+    <tr>
+        <th>
+            <h2 style="text-align:center; color: #1E68A6;">Authentication</h2>
+
+            <div>
+                <form method="post" th:action="@{/users/login}" th:object="${loginForm}">
+                    <div class="form-group">
+                        <input type="text" id="userName" name="userName" class="form-control" placeholder="User Name"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="passwordHash" name="passwordHash" class="form-control"
+                               placeholder="Password"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary pull-left" value="Sign in"/>
+                        <a href="register.html" th:href="@{/users/register}"></a>
+                    </div>
+                    <br><br>
+                    <div class="form-group alert alert-danger" th:if="${param.error}">Invalid Username or Password</div>
+                </form>
+
+            </div>
+        </th>
+    </tr>
+</table>
+<footer th:replace="layout::site-footer"></footer>
+</body>
+
+</html>

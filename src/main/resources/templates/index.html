@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+<!--<body style="background:url('../public/img/background.jpg');  "th:style="'background:url('+ @{img/background.jpg} +');'">-->
+<body>
+<header th:replace="layout::site-header"></header>
+
+<main id="posts">
+    <article th:each="p : ${allPosts}">
+        <h5 class="title"><a th:href="${p.link}" target="_blank" title="Read more!" th:text="${p.title}"></a></h5>
+        <p class="content" th:utext="${p.content}"></p>
+        <div class="date">
+            <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}"></span>
+            <span th:if="${p.author}" th:remove="tag">
+                  <i>by</i>
+                  <span th:text="${p.author.fullName != null ? p.author.fullName : p.author.userName}"></span>
+                </span>
+            <hr>
+        </div>
+    </article>
+</main>
+
+<footer th:replace="layout::site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+DataBase Name:
+= stream_news
+
+Entities:
+ = Users
+   * id - unique idenfier
+   * user_name - User Name
+   * role - User's Authority
+   * full_name - User's Full Name
+   * password_hash - encrypted password
+ = Posts
+   * id - unique idenfier
+   * title - News Title
+   * content - News Description
+   * date - News Date-Time when it was added
+   * link - The real url address of the news
+   * author_id - REFERENCES User id
+ = Access
+   * id - unique idenfier
+   * date_time - Date-Time when an User tries to Sign In
+   * ip - The IP of the User
+   * author_id - REFERENCES User id
+   * user_name - User Name
+   * role - User's Authority
+   * full_name - User's Full Name
+   * password_hash - encrypted password
+   * ip_location - Try to find the approximative User's location by using Geolocation Script on IP

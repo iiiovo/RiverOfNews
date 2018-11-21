@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+
+<body>
+<header th:replace="layout::site-header"></header>
+
+<h2 style="text-align:center; color: #1E68A6;">Edit Article</h2>
+
+<table align="center" style="width:40%;margin: auto;padding:2%;background: #E8EBF0;">
+    <tr>
+        <th>
+            <div>
+                <form action="#" th:action="@{/posts/edit}" th:object="${post}" method="post">
+                    <div class="form-group" style="color:#0088cc;">
+                        <label>Title</label>
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{author}"/>
+                        <input type="text" th:field="*{title}"
+                               th:class="${#fields.hasErrors('title') ? 'form-control is-invalid' : 'form-control'}"/>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group" style="color:#0088cc;">
+                        <label>Description</label>
+                        <textarea rows="5" cols="" th:field="*{content}"
+                                  th:class="${#fields.hasErrors('content') ? 'form-control is-invalid' : 'form-control'}"></textarea>
+                        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
+                             class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group" style="color:#0088cc;">
+                        <label>Link</label>
+                        <input type="text" th:field="*{link}" th:class="${#fields.hasErrors('link') ? 'form-control is-invalid' : 'form-control'}"/>
+                        <div th:if="${#fields.hasErrors('link')}" th:errors="*{link}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <button type="submit" class="btn btn-primary float-left">Update Article</button>
+                    </div>
+                    <div class="form-group">
+                        <div th:class="${successMessage} ? 'alert alert-success' : ''"
+                             th:text="${successMessage}"></div>
+                    </div>
+                </form>
+            </div>
+        </th>
+    </tr>
+</table>
+<footer th:replace="layout::site-footer"></footer>
+</body>
+</html>
